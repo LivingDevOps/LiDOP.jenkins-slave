@@ -23,8 +23,7 @@ RUN curl --create-dirs -fsSLo /usr/share/jenkins/slave.jar https://repo.jenkins-
 RUN curl --insecure -o ./sonarscanner.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip && \
 	unzip sonarscanner.zip && \
 	rm sonarscanner.zip && \
-	mv sonar-scanner-3.3.0.1492-linux /usr/lib/sonar-scanner && \
-	ln -s /usr/lib/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
+	mv sonar-scanner-3.3.0.1492-linux /usr/lib/sonar-scanner 
 
 ENV SONAR_RUNNER_HOME=/usr/lib/sonar-scanner
 
