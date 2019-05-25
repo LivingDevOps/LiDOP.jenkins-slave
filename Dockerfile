@@ -20,6 +20,16 @@ RUN curl --create-dirs -fsSLo /usr/share/jenkins/slave.jar https://repo.jenkins-
   && chmod 755 /usr/share/jenkins \
   && chmod 644 /usr/share/jenkins/slave.jar
 
+RUN curl --insecure -o ./sonarscanner.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip && \
+	unzip sonarscanner.zip && \
+	rm sonarscanner.zip && \
+	mv sonar-scanner-3.3.0.1492-linux /usr/lib/sonar-scanner && \
+	ln -s /usr/lib/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
+
+ENV SONAR_RUNNER_HOME=/usr/lib/sonar-scanner
+
+COPY sonar-runner.properties /usr/lib/sonar-scanner/conf/sonar-scanner.properties
+
 USER ${user}
 ENV AGENT_WORKDIR=${AGENT_WORKDIR}
 RUN mkdir /home/${user}/.jenkins && mkdir -p ${AGENT_WORKDIR}
@@ -30,7 +40,7 @@ WORKDIR /home/${user}
 
 USER root
 RUN pip3 install --upgrade pip
-RUN pip3 install docker && pip3 install docker-compose
+RUN pip3 install docker && pip3 install docker-compose && pip3 install pywinrm
 
 RUN git config --system http.sslVerify false
 
