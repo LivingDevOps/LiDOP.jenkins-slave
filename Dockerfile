@@ -23,7 +23,8 @@ RUN pip3 install --upgrade pip  \
 	&& pip3 install \
 		docker  \
 		docker-compose  \
-		pywinrm
+		pywinrm \
+		python-consul
 
 # Jenkins User and slave
 ARG user=jenkins
