@@ -17,7 +17,7 @@ RUN apk update \
 		py-pip \
 		ansible \
 		nss \
-		terraform
+		terraform \
 		sshpass
 
 RUN pip3 install --upgrade pip  \
